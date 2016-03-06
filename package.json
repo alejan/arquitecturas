@@ -1,0 +1,31 @@
+{
+  "name": "abcpets",
+  "version": "1.0.0",
+  "description": "arquitecturas agiles proyecto 2016",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jasmo2/abc_mascotas.git"
+  },
+  "keywords": [
+    "pets",
+    "abc",
+    "abcpets"
+  ],
+  "author": "jasmo2",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jasmo2/abc_mascotas/issues"
+  },
+  "homepage": "https://github.com/jasmo2/abc_mascotas#readme",
+  "dependencies": {
+    "express": "^4.13.4",
+    "socket.io": "^1.4.5",
+    "morgan": "~1.6.1",
+    "better-console": "^0.2.4",
+    "body-parser": "~1.13.2"
+  }
+}
