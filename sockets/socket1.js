@@ -7,4 +7,4 @@ exports = module.exports = function(io){
             console.log('file1Event triggered');
         });
     });
-}
+};

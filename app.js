@@ -1,77 +1,73 @@
-/**
- * Created by jasmo2 on 2/24/16.
- *  github_user jasmo2
- */
-
-// =================================================================
-// Pacakges needed ========================================
-// =================================================================
 var express = require('express');
-var console = require('better-console');
-var bodyParser = require('body-parser');
-var mongoose   = require('mongoose');
+var path = require('path');
 var favicon = require('serve-favicon');
+var logger = require('morgan');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
+
+//Requeridos?
+var console = require('better-console');
 var morgan = require('morgan');
 //var fs = require('fs');
 
+var routes = require('./routes/index');
+var users = require('./routes/users');
 
-var mongoPass = process.env.ABCPPETS_PASS;
-var mongoHost = "localhost";
-var mongoUser = process.env.ABCPPETS_USER;
-var mongoPort = '27017';
-var mongoDB = 'abc_pets_'+process.env.NODE_ENV;
-
-mongoose.connect('mongodb://'+mongoUser+':'+mongoPass+'@'+mongoHost+':'+mongoPort+'/'+mongoDB);
-
-
-
-// =================================================================
-// body-parser ===========================================
-// =================================================================
 var app = express();
 
-// use body parser so we can get info from POST and/or URL parameters
-app.use(bodyParser.urlencoded({ extended: false }));
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
+
+// uncomment after placing your favicon in /public
+//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(logger('dev'));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(morgan('dev'));
+//app.use(morgan('dev'));
 
-// =================================================================
-// Routes =============================================
-// =================================================================
-
-var router = express.Router();
-
-// ---------------------------------------------------------
-// route middleware to authenticate and check token
-// ---------------------------------------------------------
-// router.use(middlewares.authenticate);
-// ---------------------------------------------------------
-// routes with authentication needed
-// ---------------------------------------------------------
+app.use('/', routes);
+app.use('/users', users);
 
 
+//NO FUNCIONA
+//var io = require('socket.io')(app);	//Binds socket to http server
+//var socket1 = require("./sockets/socket1")(io);
 
 
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  var err = new Error('Not Found');
+  err.status = 404;
+  next(err);
+});
+
+// error handlers
+
+// development error handler
+// will print stacktrace
+if (app.get('env') === 'development') {
+  app.use(function(err, req, res, next) {
+    res.status(err.status || 500);
+    res.render('error', {
+      message: err.message,
+      error: err
+    });
+  });
+}
+
+// production error handler
+// no stacktraces leaked to user
+app.use(function(err, req, res, next) {
+  res.status(err.status || 500);
+  res.render('error', {
+    message: err.message,
+    error: {}
+  });
+});
 
 
-
-// =================================================================
-// Enviroment =============================================
-// =================================================================
-var port = process.env.PORT || 8000;
-
-
-// Register all our routes with /api
-app.use('/api', router);
-
-
-// Start the server
-app.listen(port);
-console.info('App runing in por: ' + port);
-
-// =================================================================
-// Sockets =============================================
-// =================================================================
-var io = require('socket.io')(app);	//Binds socket to http server
-var socket1 = require("./sockets/socket1")(io);
+module.exports = app;
