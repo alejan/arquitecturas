@@ -53,3 +53,4 @@ require('./positionEvent');
 require('./latidoEvent');
 require('./localizacionEvent');
 require('./respiracionEvent');
+require('./safeZones');

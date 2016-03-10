@@ -27,7 +27,7 @@ module.exports.positionEventCreate = function(req, res){
 module.exports.latidoEventCreate = function(data){
 	latidoEvent.create({
 	  idMascota: data.idMascota,
-	  idCollar: data.idCollar, 
+	  idCollar: data.idCollar,
 	  idUsuario: data.idUsuario,
 	  latido: data.latido,
 	  fecha: data.fecha
@@ -43,7 +43,7 @@ module.exports.latidoEventCreate = function(data){
 module.exports.localizacionEventCreate = function(data){
 	localizacionEvent.create({
 	  idMascota: data.idMascota,
-	  idCollar: data.idCollar, 
+	  idCollar: data.idCollar,
 	  idUsuario: data.idUsuario,
 	  latitud: data.latitud,
 	  longitud: data.longitud,
@@ -60,7 +60,7 @@ module.exports.localizacionEventCreate = function(data){
 module.exports.respiracionEventCreate = function(data){
 	respiracionEvent.create({
 	  idMascota: data.idMascota,
-	  idCollar: data.idCollar, 
+	  idCollar: data.idCollar,
 	  idUsuario: data.idUsuario,
 	  respiracion: data.respiracion,
 	  fecha: data.fecha
