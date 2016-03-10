@@ -3,7 +3,7 @@ var socket = io.connect('http://localhost:3000', { 'forceNew': true });
 socket.on('messages', function(data) {  
   console.log(data);
   render(data);
-})
+});
 
 function render (data) {  
   var html = data.map(function(elem, index) {
@@ -16,7 +16,9 @@ function render (data) {
   document.getElementById('messages').innerHTML = html;
 }
 
-function addMessage(e) {  
+function addMessage(e) {
+  e.preventDefault();
+
   var message = {
     author: document.getElementById('username').value,
     text: document.getElementById('texto').value

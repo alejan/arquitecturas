@@ -21,8 +21,10 @@ function render (data) {
 }
 
 
-function addMessage(e) {  
-  var message = {
+function addLocalizacion(e) {
+    e.preventDefault();
+
+    var message = {
     idMascota: document.getElementById('IdMascota').value,
     idCollar: document.getElementById('IdCollar').value,
 	idUsuario: document.getElementById('IdUsuario').value,
