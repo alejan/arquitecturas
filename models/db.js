@@ -50,3 +50,6 @@ process.once('SIGTERM', function(){
 
 
 require('./positionEvent');
+require('./latidoEvent');
+require('./localizacionEvent');
+require('./respiracionEvent');

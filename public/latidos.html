@@ -1,0 +1,22 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+  <meta charset="UTF-8">
+  <title>Sockets Latidos</title>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="mainLatidos.js"></script>
+</head>  
+<body>  
+  <h1>Latidos</h1>
+  <div id="messages"></div>
+  <br/>
+  <form onsubmit="return addMessage(this)">
+    <input type="text" id="IdMascota" placeholder="IdMascota" >
+	<input type="text" id="IdCollar" placeholder="IdCollar" >
+	<input type="text" id="IdUsuario" placeholder="IdUsuario" >
+	<input type="text" id="Latido" placeholder="Latido" >
+	<input type="text" id="Fecha" placeholder="Fecha">
+    <input type="submit" value="Enviar!">
+  </form>
+</body>  
+</html>  
