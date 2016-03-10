@@ -6,3 +6,12 @@ tags
 
 #Mac specific
 .DS_Store
+.jshintrc
+.project
+.settings/.jsdtscope
+.settings/com.eclipsesource.jshint.ui.prefs
+.settings/org.eclipse.wst.jsdt.core.prefs
+.settings/org.eclipse.wst.jsdt.ui.superType.container
+.settings/org.eclipse.wst.jsdt.ui.superType.name
+.sublime-project
+README.md
