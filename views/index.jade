@@ -1,5 +1,10 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  h1 My App1
+    #messages
+    br
+    form(onsubmit='return addMessage(this)')
+      input#username(type='text', placeholder='Tu Nombre')
+      input#texto(type='text', placeholder='Cu�ntanos algo...')
+      input(type='submit', value='Enviar!')
