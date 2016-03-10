@@ -50,6 +50,7 @@ exports = module.exports = function(io){
 		    messagesLatido.push(data);
 		    
 		    ctrEvents.latidoEventCreate(data);
+		    ctrEvents.latidoEventValidate(data);
 		    
 			io.sockets.emit('messagesLatido', messagesLatido);
 		  });
@@ -58,6 +59,7 @@ exports = module.exports = function(io){
 		    messagesRespiracion.push(data);
 			
 		    ctrEvents.respiracionEventCreate(data);
+		    ctrEvents.respiracionEventValidate(data);
 		    
 			io.sockets.emit('messagesRespiracion', messagesRespiracion);
 		  });  
@@ -66,6 +68,7 @@ exports = module.exports = function(io){
 		    messagesLocalizacion.push(data);
 			
 		    ctrEvents.localizacionEventCreate(data);
+		    ctrEvents.localizacionEventValidate(data);
 		    
 			io.sockets.emit('messagesLocalizacion', messagesLocalizacion);
 		  });  

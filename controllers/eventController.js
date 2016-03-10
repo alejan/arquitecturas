@@ -3,6 +3,8 @@ var positionEvent = mongoose.model('PositionEvent');
 var latidoEvent = mongoose.model('latidoEvent');
 var localizacionEvent = mongoose.model('localizacionEvent');
 var respiracionEvent = mongoose.model('respiracionEvent');
+var mascotas = mongoose.model('mascota');
+var zonasSegura = mongoose.model('zonaSegura');
 
 var sendJsonResponse = function(res, status, content){
 	res.status(status);
@@ -39,7 +41,24 @@ module.exports = {
 			}
 		});
 	},
-
+	latidoEventValidate: function(data){
+        mascotas.findOne({idMascota: data.idMascota, idCollar: data.idCollar, idUsuario: data.idUsuario}).stream()
+            .on('data', function(mascota){
+                //handle mascota
+                if (data.latido >= mascota.maxLatido){
+                    console.log('se debe enviar notificacion latido');
+                }
+                else {
+                    console.log('no se debe enviar notificacion latido');
+                }
+            })
+            .on('error', function(err){
+                // handle error
+            })
+            .on('end', function(){
+                // final callback
+            });
+    },
 	localizacionEventCreate: function(data){
 		localizacionEvent.create({
 			idMascota: data.idMascota,
@@ -71,5 +90,48 @@ module.exports = {
 				console.log("saved data respiracion OK");
 			}
 		});
-	}
+	},
+	localizacionEventValidate: function(data){
+        zonasSegura.findOne({idMascota: data.idMascota, idCollar: data.idCollar, idUsuario: data.idUsuario}).stream()
+            .on('data', function(zonaSegura){
+                //handle mascota
+                console.log(zonaSegura.p1X);
+                console.log(zonaSegura.p2X);
+                console.log(zonaSegura.p3Y);
+                console.log(zonaSegura.p1X <= data.latitud);
+                console.log(zonaSegura.p2X >= data.latitud);
+                console.log(zonaSegura.p1X <= data.latitud);
+                if (zonaSegura.p1X <= data.latitud && zonaSegura.p2X >= data.latitud && zonaSegura.p1Y <= data.longitud && zonaSegura.p3Y >= data.longitud){
+                    console.log('no se debe enviar notificacion localizacion');
+                }
+                else {
+                    console.log('se debe enviar notificacion localizacion');
+                }
+            })
+            .on('error', function(err){
+                // handle error
+            })
+            .on('end', function(){
+                // final callback
+            });
+    },
+
+    respiracionEventValidate: function(data){
+        mascotas.findOne({idMascota: data.idMascota, idCollar: data.idCollar, idUsuario: data.idUsuario}).stream()
+           .on('data', function(mascota){
+                //handle mascota
+               if (data.respiracion >= mascota.maxRespiracion){
+                   console.log('se debe enviar notificacion respiracion');
+               }
+               else {
+                   console.log('no se debe enviar notificacion respiracion');
+               }
+              })
+              .on('error', function(err){
+                // handle error
+              })
+              .on('end', function(){
+                // final callback
+              });
+    }
 };
