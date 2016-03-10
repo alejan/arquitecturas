@@ -20,7 +20,7 @@ function render (data) {
 }
 
 function addRespiracion(e) {
-    e.preventDefault();
+
 
     var message = {
     idMascota: document.getElementById('IdMascota').value,

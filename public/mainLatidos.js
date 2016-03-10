@@ -20,7 +20,7 @@ function render (data) {
 }
 
 function addLatidos(e) {
-    e.preventDefault();
+
 
     var message = {
     idMascota: document.getElementById('IdMascota').value,

@@ -17,7 +17,7 @@ function render (data) {
 }
 
 function addMessage(e) {
-  e.preventDefault();
+  //
 
   var message = {
     author: document.getElementById('username').value,

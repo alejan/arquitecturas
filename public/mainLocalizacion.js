@@ -22,7 +22,7 @@ function render (data) {
 
 
 function addLocalizacion(e) {
-    e.preventDefault();
+
 
     var message = {
     idMascota: document.getElementById('IdMascota').value,
