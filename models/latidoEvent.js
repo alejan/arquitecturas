@@ -1,3 +1,4 @@
+
 var mongoose = require('mongoose');
 
 var latidoEventSchema = new mongoose.Schema({

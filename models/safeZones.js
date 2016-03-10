@@ -1,3 +1,4 @@
+
 var mongoose = require('mongoose');
 
 var safeZoneSchema = new mongoose.Schema({

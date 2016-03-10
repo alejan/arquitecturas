@@ -1,3 +1,4 @@
+
 var mongoose = require('mongoose');
 var positionEvent = mongoose.model('PositionEvent');
 var safezone = mongoose.model('SafeZone');
