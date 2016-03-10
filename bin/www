@@ -33,7 +33,7 @@ server.on('listening', onListening);
 // Sockets =============================================
 // =================================================================
 var io = require('socket.io')(server);	//Binds socket to http server
-var socket1 = require("./sockets/socket1")(io);
+var socket1 = require("../sockets/socket1")(io);
 
 //Notificacion adicional
 console.log('App runing in por: ' + port);
