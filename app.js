@@ -35,10 +35,6 @@ app.use('/', routes);
 app.use('/users', users);
 
 
-//NO FUNCIONA
-//var io = require('socket.io')(app);	//Binds socket to http server
-//var socket1 = require("./sockets/socket1")(io);
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -70,6 +66,10 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
-
+// =================================================================
+// Sockets =============================================
+// =================================================================
+var io = require('socket.io')(app);	//Binds socket to http server
+var socket1 = require("./sockets/socket1")(io);
 
 module.exports = app;
