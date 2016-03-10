@@ -16,7 +16,9 @@ function render (data) {
   document.getElementById('messages').innerHTML = html;
 }
 
-function addMessage(e) {  
+function addMessage(e) {
+  e.preventDefault();
+
   var message = {
     author: document.getElementById('username').value,
     text: document.getElementById('texto').value

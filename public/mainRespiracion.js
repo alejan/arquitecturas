@@ -19,8 +19,10 @@ function render (data) {
   document.getElementById('messages').innerHTML = html;
 }
 
-function addMessage(e) {  
-  var message = {
+function addRespiracion(e) {
+    e.preventDefault();
+
+    var message = {
     idMascota: document.getElementById('IdMascota').value,
     idCollar: document.getElementById('IdCollar').value,
 	idUsuario: document.getElementById('IdUsuario').value,
