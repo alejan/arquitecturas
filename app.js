@@ -5,6 +5,8 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+require('./models/db');
+
 //Requeridos?
 var console = require('better-console');
 var morgan = require('morgan');
