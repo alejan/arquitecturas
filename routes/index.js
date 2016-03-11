@@ -12,11 +12,11 @@ router.get('/', function(req, res, next) {
 //router.get('/event', ctrEvents.positionEventCreate);
 
 
-//var restEvtCtrl = require('../controllers/restEventController');
-//var ctrEvents = require('../controllers/eventController');
+var restEvtCtrl = require('../controllers/restEventController');
+var ctrEvents = require('../controllers/eventController');
 
-//router.get('/event', restEvtCtrl.positionEventCreate);
-//router.get('/init', restEvtCtrl.safeZoneCreate);
+router.get('/event', restEvtCtrl.positionEventCreate);
+router.get('/init', restEvtCtrl.safeZoneCreate);
 
 /* GET home page. */
 router.get('/testtwilio', function(req, res, next) {
