@@ -91,13 +91,24 @@ module.exports = {
                 "coordinates": [longitude, latitude]
               }
             };
-            var poly = {
-              "type": "Feature",
-              "geometry": data.geoPoly
-            };
 
-            var isInside = turf.inside(pt1, poly);
-            console.log('Is inside ok 1:' + isInside);
+            var isInside = false;
+            for(var n = 0; n< data.geoPoly.coordinates[0].length; n++){
+              var poly = {
+                "type": "Feature",
+                "geometry": {
+                  "type" : "Polygon",
+                  "coordinates":[
+                    data.geoPoly.coordinates[0][n]
+                  ]
+                }
+              };
+              var insidePoly = turf.inside(pt1, poly);
+              if(insidePoly === true){
+                isInside = true;
+                break;
+              }
+            }
 
             sendJsonResponse(res, 200, {alarma: !isInside});
           }
