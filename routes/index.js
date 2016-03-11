@@ -15,7 +15,7 @@ router.get('/', function(req, res, next) {
 var restEvtCtrl = require('../controllers/restEventController');
 var ctrEvents = require('../controllers/eventController');
 
-router.get('/event', restEvtCtrl.positionEventCreate);
+router.post('/event', restEvtCtrl.positionEventCreate);
 router.get('/init', restEvtCtrl.safeZoneCreate);
 
 /* GET home page. */

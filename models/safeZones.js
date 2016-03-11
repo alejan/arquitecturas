@@ -1,14 +1,9 @@
 
 var mongoose = require('mongoose');
 
-var geometrySchema = new mongoose.Schema({
-    type: {type: String, default: "Polygon"},
-    coordinates: {type: []},
-});
-
 var geoPolygonSchema = new mongoose.Schema({
-    type: {type: String, default: "Feature"},
-    geometry: geometrySchema
+    type: {type: String, default: "MultiPolygon"},
+    coordinates: {type: []},
 });
 
 var safeZoneSchema = new mongoose.Schema({

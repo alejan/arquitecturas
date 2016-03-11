@@ -14,13 +14,10 @@ var sendJsonResponse = function(res, status, content){
 module.exports = {
     safeZoneCreate:  function(req, res){
         safezone.create({
-            petName: "temp",
+            petName: "pet",
             geoPoly: {
-              "type": "Feature",
-              "properties": {},
-              "geometry": {
-                "type": "Polygon",
-                "coordinates":[
+              "type": "MultiPolygon",
+              "coordinates":[
                 //aproximadamente las cuatro esquinas del ML
                 //latitude, longitude (orden de google maps)
                 //4.602301, -74.064673
@@ -30,14 +27,25 @@ module.exports = {
 
                 //orden mongo (longitud, latitud)
                 [
-                    [-74.064673, 4.602301],
+                  //AU
+                  [ [-74.066180, 4.602432],
+                    [-74.066019, 4.602814],
+                    [-74.066529, 4.602843],
+                    [-74.066864, 4.602736],
+                    [-74.066805, 4.602610],
+                    [-74.066180, 4.602432]
+                  ],
+                  //ML
+                  [ [-74.064673, 4.602301],
                     [-74.064426, 4.602833],
                     [-74.064965, 4.603183],
                     [-74.065287, 4.602720],
                     [-74.064673, 4.602301]
+                  ],
 
-                ]]
-              }
+
+                ]
+              ]
             }
 
         }, function(err, data){
@@ -54,49 +62,46 @@ module.exports = {
 //Servicio REST para pruebas
     positionEventCreate: function(req, res){
 
+        var petName = req.body.petName;
+        var longitude = parseFloat(req.body.longitude);
+        var latitude = parseFloat(req.body.latitude);
+
         positionEvent.create({
-            petName: "temp",
-            coords: [parseFloat(10), parseFloat(20)],
+            petName: petName,
+            coords: [longitude, latitude],
         }, function(err, location){
             if(err){
-                sendJsonResponse(res, 400, err);
+                console.log(err);
             } else {
                 console.log("saved data");
-                sendJsonResponse(res, 201, location);
             }
         });
 
 
-        safezone.findOne({petName: "temp"}, function(err, data){
-          if(!err){
+        safezone.findOne({petName: petName}, function(err, data){
+          if(err){
+            sendJsonResponse(res, 400, err);
+          }
+          else{
             var pt1 = {
               "type": "Feature",
               "geometry": {
                 "type": "Point",
-                "coordinates": [-74.064834, 4.602736]
+                //corrdenada dentro del ML: [-74.064862, 4.602737]
+                "coordinates": [longitude, latitude]
               }
             };
-            var pt2 = {
+            var poly = {
               "type": "Feature",
-              "geometry": {
-                "type": "Point",
-                "coordinates": [-74.065539, 4.602977]
-              }
-            };
-            var poly = data.geoPoly;
-            
-            var features = {
-              "type": "FeatureCollection",
-              "features": [pt1, pt2, poly]
+              "geometry": data.geoPoly
             };
 
-            var isInside1 = turf.inside(pt1, poly);
-            var isInside2 = turf.inside(pt2, poly);
-            console.log('Is inside ok 1:' + isInside1 + ", is inside 2: " +isInside2);
+            var isInside = turf.inside(pt1, poly);
+            console.log('Is inside ok 1:' + isInside);
+
+            sendJsonResponse(res, 200, {alarma: !isInside});
           }
         });
-
-
 
 
     }
