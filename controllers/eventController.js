@@ -55,9 +55,11 @@ module.exports = {
             })
             .on('error', function(err){
                 // handle error
+            	console.log("error latido validate");
             })
             .on('end', function(){
                 // final callback
+            	console.log("terminar latido validate")
             });
     },
 	localizacionEventCreate: function(data){
@@ -96,12 +98,6 @@ module.exports = {
         zonasSegura.findOne({idMascota: data.idMascota, idCollar: data.idCollar, idUsuario: data.idUsuario}).stream()
             .on('data', function(zonaSegura){
                 //handle mascota
-                console.log(zonaSegura.p1X);
-                console.log(zonaSegura.p2X);
-                console.log(zonaSegura.p3Y);
-                console.log(zonaSegura.p1X <= data.latitud);
-                console.log(zonaSegura.p2X >= data.latitud);
-                console.log(zonaSegura.p1X <= data.latitud);
                 if (zonaSegura.p1X <= data.latitud && zonaSegura.p2X >= data.latitud && zonaSegura.p1Y <= data.longitud && zonaSegura.p3Y >= data.longitud){
                     console.log('no se debe enviar notificacion localizacion');
                 }

@@ -1,18 +1,17 @@
 
 //
    Created by jasmo2 on 3/10/16.
-extends layout
+extends layoutLocalizacion
 
 block content
-    h1 Latidos
-        h1 Localizacion
-        #messages
-        br
-        form(onsubmit='return addLocalizacion(this)')
-            input#IdMascota(type='text', placeholder='IdMascota')
-            input#IdCollar(type='text', placeholder='IdCollar')
-            input#IdUsuario(type='text', placeholder='IdUsuario')
-            input#Latitud(type='text', placeholder='Latitud')
-            input#Longitud(type='text', placeholder='Longitud')
-            input#Fecha(type='text', placeholder='Fecha')
-            input(type='submit', value='Enviar!')
+    h1 Localizacion
+    #messages
+    br
+    form(onsubmit='return addLocalizacion(this)')
+        input#IdMascota(type='text', placeholder='IdMascota')
+        input#IdCollar(type='text', placeholder='IdCollar')
+        input#IdUsuario(type='text', placeholder='IdUsuario')
+        input#Latitud(type='text', placeholder='Latitud')
+        input#Longitud(type='text', placeholder='Longitud')
+        input#Fecha(type='text', placeholder='Fecha')
+        input(type='submit', value='Enviar!')

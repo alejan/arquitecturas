@@ -1,16 +1,16 @@
 
 //
    Created by jasmo2 on 3/10/16.
-extends layout
+extends layoutLatidos
 
 block content
     h1 Latidos
-        #messages
-        br
-        form(onsubmit='return addLatidos(this)')
-            input#IdMascota(type='text', placeholder='IdMascota')
-            input#IdCollar(type='text', placeholder='IdCollar')
-            input#IdUsuario(type='text', placeholder='IdUsuario')
-            input#Latido(type='text', placeholder='Latido')
-            input#Fecha(type='text', placeholder='Fecha')
-            input(type='submit', value='Enviar!')
+    #messages
+    br
+    form(onsubmit='return addLatidos(this)')
+        input#IdMascota(type='text', placeholder='IdMascota')
+        input#IdCollar(type='text', placeholder='IdCollar')
+        input#IdUsuario(type='text', placeholder='IdUsuario')
+        input#Latido(type='text', placeholder='Latido')
+        input#Fecha(type='text', placeholder='Fecha')
+        input(type='submit', value='Enviar!')

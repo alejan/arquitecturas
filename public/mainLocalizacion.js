@@ -23,8 +23,6 @@ function render (data) {
 
 
 function addLocalizacion(e) {
-
-
     var message = {
     idMascota: document.getElementById('IdMascota').value,
     idCollar: document.getElementById('IdCollar').value,
