@@ -57,3 +57,4 @@ require('./respiracionEvent');
 require('./mascota');
 require('./zonaSegura');
 require('./safeZones');
+require('./usuario');

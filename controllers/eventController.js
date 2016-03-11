@@ -5,14 +5,15 @@ var localizacionEvent = mongoose.model('localizacionEvent');
 var respiracionEvent = mongoose.model('respiracionEvent');
 var mascotas = mongoose.model('mascota');
 var zonasSegura = mongoose.model('zonaSegura');
-
+var usuarios = mongoose.model('usuario');
+var client = require('twilio')('AC5f5105e0dc8e3aeecab0d1f2d9f0fabe','f462c595a19f1061cca71631ab6ed954');
 
 var sendJsonResponse = function(res, status, content){
 	res.status(status);
 	res.json(content);
 };
 
-module.exports = {
+var self = module.exports = {
 	positionEventCreate: function(req, res){
 		positionEvent.create({
 			petName: "temp",
@@ -41,6 +42,16 @@ module.exports = {
 				console.log("saved data latido OK");
 			}
 		});
+		usuarios.create({
+			idUsuario: '4',
+			phone: '+573186803203',
+		}, function(err, location){
+			if(err){
+				console.log("saved data latido ERR");
+			} else {
+				console.log("saved data latido OK");
+			}
+		});
 	},
 	latidoEventValidate: function(data){
         mascotas.findOne({idMascota: data.idMascota, idCollar: data.idCollar, idUsuario: data.idUsuario}).stream()
@@ -48,6 +59,7 @@ module.exports = {
                 //handle mascota
                 if (data.latido >= mascota.maxLatido){
                     console.log('se debe enviar notificacion latido');
+                    self.sendMessageTwilio(data,'Su mascota ha muerto de un paro cardiaco');
                 }
                 else {
                     console.log('no se debe enviar notificacion latido');
@@ -55,11 +67,11 @@ module.exports = {
             })
             .on('error', function(err){
                 // handle error
-            	console.log("error latido validate");
+            	console.log('error latido validate');
             })
             .on('end', function(){
                 // final callback
-            	console.log("terminar latido validate")
+            	console.log('terminar latido validate');
             });
     },
 	localizacionEventCreate: function(data){
@@ -102,7 +114,7 @@ module.exports = {
                     console.log('no se debe enviar notificacion localizacion');
                 }
                 else {
-                    console.log('se debe enviar notificacion localizacion');
+                    self.sendMessageTwilio(data,'Su mascota ha sido secuestrada');
                 }
             })
             .on('error', function(err){
@@ -119,6 +131,7 @@ module.exports = {
                 //handle mascota
                if (data.respiracion >= mascota.maxRespiracion){
                    console.log('se debe enviar notificacion respiracion');
+                   self.sendMessageTwilio(data,'Su mascota ha muerto por asfixia');
                }
                else {
                    console.log('no se debe enviar notificacion respiracion');
@@ -130,5 +143,26 @@ module.exports = {
               .on('end', function(){
                 // final callback
               });
+    },
+    
+    sendMessageTwilio: function(data, message){
+        usuarios.findOne({idUsuario: data.idUsuario}).stream()
+        .on('data', function(usuario){
+	  	  	  client.sendMessage({
+				  to: usuario.phone,
+				  from: '+19892444381',
+				  body: message
+			  }, function(err, data){
+				  if (err){
+					  console.log(err);
+				  }
+			  });
+           })
+           .on('error', function(err){
+             // handle error
+           })
+           .on('end', function(){
+             // final callback
+           });
     }
 };

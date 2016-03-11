@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
+
 //var ctrEvents = require('../controllers/eventController');
 
 /* GET home page. */
@@ -18,6 +19,9 @@ router.get('/', function(req, res, next) {
 //router.get('/init', restEvtCtrl.safeZoneCreate);
 
 /* GET home page. */
+router.get('/testtwilio', function(req, res, next) {
+
+});
 router.get('/index', function(req, res, next) {
 	  res.render('index');
 });
