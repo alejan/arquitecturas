@@ -6,7 +6,7 @@ var respiracionEvent = mongoose.model('respiracionEvent');
 var mascotas = mongoose.model('mascota');
 var zonasSegura = mongoose.model('zonaSegura');
 var usuarios = mongoose.model('usuario');
-var client = require('twilio')('AC5f5105e0dc8e3aeecab0d1f2d9f0fabe','f462c595a19f1061cca71631ab6ed954');
+var client = require('twilio')('AC5f5105e0dc8e3aeecab0d1f2d9f0fabediego','dfi4e6g2oc595a19f1061cca71631ab6ed954');
 
 var sendJsonResponse = function(res, status, content){
 	res.status(status);
