@@ -6,6 +6,7 @@ block content
     script(src='mainLocalizacion.js')
     h1 Localizacion
     #messages
+    #messagesrespuesta
     br
     form(onsubmit='return addLocalizacion(this)')
         input#IdMascota(type='text', placeholder='IdMascota')
@@ -13,5 +14,4 @@ block content
         input#IdUsuario(type='text', placeholder='IdUsuario')
         input#Latitud(type='text', placeholder='Latitud')
         input#Longitud(type='text', placeholder='Longitud')
-        input#Fecha(type='text', placeholder='Fecha')
         input(type='submit', value='Enviar!')

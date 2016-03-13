@@ -53,7 +53,9 @@ exports = module.exports = function(io){
 		    ctrEvents.latidoEventCreate(data);
 		    ctrEvents.latidoEventValidate(data);
 		    
-			io.sockets.emit('messagesLatido', messagesLatido);
+			//io.sockets.emit('messagesLatido', messagesLatido);
+		    socket.emit('messagesLatido', messagesLatido);
+		    socket.emit('messagesLatidoRespuesta', {respuesta:'OK'});
 		  });
 
 		  socket.on('new-messageRespiracion', function(data) {
@@ -62,7 +64,9 @@ exports = module.exports = function(io){
 		    ctrEvents.respiracionEventCreate(data);
 		    ctrEvents.respiracionEventValidate(data);
 		    
-			io.sockets.emit('messagesRespiracion', messagesRespiracion);
+			//io.sockets.emit('messagesRespiracion', messagesRespiracion);
+		    socket.emit('messagesRespiracion', messagesRespiracion);
+		    socket.emit('messagesRespiracionRespuesta', {respuesta:'OK'});
 		  });  
 
 		  socket.on('new-messageLocalizacion', function(data) {
@@ -71,7 +75,9 @@ exports = module.exports = function(io){
 		    ctrEvents.localizacionEventCreate(data);
 		    ctrEvents.localizacionEventValidate(data);
 		    
-			io.sockets.emit('messagesLocalizacion', messagesLocalizacion);
+			//io.sockets.emit('messagesLocalizacion', messagesLocalizacion);
+		    socket.emit('messagesLocalizacion', messagesLocalizacion);
+		    socket.emit('messagesLocalizacionRespuesta', {respuesta:'OK'});
 		  });  
 		});  
 };
