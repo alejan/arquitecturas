@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "arquitecturas agiles proyecto 2016",
   "scripts": {
-    "start": "nodemon ./bin/www"
+    "start": "node ./bin/www"
   },
   "engines": {
     "node": "~4.2.3",
