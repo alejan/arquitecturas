@@ -53,7 +53,7 @@ var self = module.exports = {
 			}
 		});
 	},
-	latidoEventValidate: function(data){
+	latidoEventValidate: function(data, callback){
         mascotas.findOne({idMascota: data.idMascota, idCollar: data.idCollar, idUsuario: data.idUsuario}).stream()
             .on('data', function(mascota){
                 //handle mascota
@@ -72,6 +72,7 @@ var self = module.exports = {
             .on('end', function(){
                 // final callback
             	console.log('terminar latido validate');
+				callback();
             });
     },
 	localizacionEventCreate: function(data){

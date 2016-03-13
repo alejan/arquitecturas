@@ -52,11 +52,13 @@ exports = module.exports = function(io){
 			  //messagesLatido.push(data);
 		    
 		    ctrEvents.latidoEventCreate(data);
-		    ctrEvents.latidoEventValidate(data);
+		    ctrEvents.latidoEventValidate(data,function(){
+				socket.emit('messagesLatidoRespuesta', {respuesta:'OKLATIDO'});
+			});
 		    
 			//io.sockets.emit('messagesLatido', messagesLatido);
 		    //socket.emit('messagesLatido', messagesLatido);
-		    socket.emit('messagesLatidoRespuesta', {respuesta:'OKLATIDO'});
+
 		  });
 
 		  socket.on('new-messageRespiracion', function(data) {
