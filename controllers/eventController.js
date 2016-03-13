@@ -59,7 +59,7 @@ var self = module.exports = {
                 //handle mascota
                 if (data.latido >= mascota.maxLatido){
                     console.log('se debe enviar notificacion latido');
-                    self.sendMessageTwilio(data,'Su mascota ha muerto de un paro cardiaco');
+                    //self.sendMessageTwilio(data,'Su mascota ha muerto de un paro cardiaco');
                 }
                 else {
                     console.log('no se debe enviar notificacion latido');
@@ -107,7 +107,7 @@ var self = module.exports = {
 			}
 		});
 	},
-	localizacionEventValidate: function(data){
+	localizacionEventValidate: function(data, callback){
         zonasSegura.findOne({idMascota: data.idMascota, idCollar: data.idCollar, idUsuario: data.idUsuario}).stream()
             .on('data', function(zonaSegura){
                 //handle mascota
@@ -115,7 +115,8 @@ var self = module.exports = {
                     console.log('no se debe enviar notificacion localizacion');
                 }
                 else {
-                    self.sendMessageTwilio(data,'Su mascota ha sido secuestrada');
+					console.log('se debe enviar notificacion localizacion');
+                    //self.sendMessageTwilio(data,'Su mascota ha sido secuestrada');
                 }
             })
             .on('error', function(err){
@@ -123,16 +124,18 @@ var self = module.exports = {
             })
             .on('end', function(){
                 // final callback
+				console.log('terminar respiracion validate');
+				callback();
             });
     },
 
-    respiracionEventValidate: function(data){
+    respiracionEventValidate: function(data, callback){
         mascotas.findOne({idMascota: data.idMascota, idCollar: data.idCollar, idUsuario: data.idUsuario}).stream()
            .on('data', function(mascota){
                 //handle mascota
                if (data.respiracion >= mascota.maxRespiracion){
                    console.log('se debe enviar notificacion respiracion');
-                   self.sendMessageTwilio(data,'Su mascota ha muerto por asfixia');
+                   //self.sendMessageTwilio(data,'Su mascota ha muerto por asfixia');
                }
                else {
                    console.log('no se debe enviar notificacion respiracion');
@@ -143,6 +146,8 @@ var self = module.exports = {
               })
               .on('end', function(){
                 // final callback
+				console.log('terminar respiracion validate');
+				callback();
               });
     },
     

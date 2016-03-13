@@ -52,10 +52,15 @@ exports = module.exports = function(io){
 			  //messagesLatido.push(data);
 		    
 		    ctrEvents.latidoEventCreate(data);
-		    ctrEvents.latidoEventValidate(data,function(){
-				socket.emit('messagesLatidoRespuesta', {respuesta:'OKLATIDO'});
-			});
 		    
+			//setTimeout(function() {
+			//ctrEvents.latidoEventValidate(data,function(){
+				//socket.emit('messagesLatidoRespuesta', {respuesta:'OKLATIDO'});
+			//})
+			//}, 10000);		    
+			ctrEvents.latidoEventValidate(data,function(){
+				socket.emit('messagesLatidoRespuesta', {respuesta:'OKLATIDO'});
+			})
 			//io.sockets.emit('messagesLatido', messagesLatido);
 		    //socket.emit('messagesLatido', messagesLatido);
 
@@ -65,22 +70,29 @@ exports = module.exports = function(io){
 		    //messagesRespiracion.push(data);
 			
 		    ctrEvents.respiracionEventCreate(data);
-		    ctrEvents.respiracionEventValidate(data);
+			ctrEvents.respiracionEventValidate(data,function(){
+				socket.emit('messagesRespiracionRespuesta', {respuesta:'OKRESPIRACION'});
+			})
+		    //ctrEvents.respiracionEventValidate(data);
+		    //ctrEvents.respiracionEventValidate(data);
 		    
 			//io.sockets.emit('messagesRespiracion', messagesRespiracion);
 		    //socket.emit('messagesRespiracion', messagesRespiracion);
-		    socket.emit('messagesRespiracionRespuesta', {respuesta:'OKRESPIRACION'});
+		    //socket.emit('messagesRespiracionRespuesta', {respuesta:'OKRESPIRACION'});
 		  });  
 
 		  socket.on('new-messageLocalizacion', function(data) {
 		    //messagesLocalizacion.push(data);
 			
 		    ctrEvents.localizacionEventCreate(data);
-		    ctrEvents.localizacionEventValidate(data);
+		    //ctrEvents.localizacionEventValidate(data);
 		    
 			//io.sockets.emit('messagesLocalizacion', messagesLocalizacion);
 		    //socket.emit('messagesLocalizacion', messagesLocalizacion);
-		    socket.emit('messagesLocalizacionRespuesta', {respuesta:'OKLOCALIZACION'});
+			ctrEvents.respiracionEventValidate(data,function(){
+				socket.emit('messagesLocalizacionRespuesta', {respuesta:'OKLOCALIZACION'});
+			})
+		    //socket.emit('messagesLocalizacionRespuesta', {respuesta:'OKLOCALIZACION'});
 		  });  
 		});  
 };
