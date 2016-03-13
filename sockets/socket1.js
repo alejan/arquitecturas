@@ -35,49 +35,50 @@ var messages = [{
 exports = module.exports = function(io){
 	io.on('connection', function(socket) {  
 		  console.log('Alguien se ha conectado con Sockets');
-		  socket.emit('messages', messages);
-		  socket.emit('messagesLatido', messagesLatido);
-		  socket.emit('messagesRespiracion', messagesRespiracion);
-		  socket.emit('messagesLocalizacion', messagesLocalizacion);
+		  //socket.emit('messages', messages);
+		  //socket.emit('messagesLatido', messagesLatido);
+		  //socket.emit('messagesRespiracion', messagesRespiracion);
+		  //socket.emit('messagesLocalizacion', messagesLocalizacion);
 
 		  socket.on('new-message', function(data) {
 		    messages.push(data);
 
-			io.sockets.emit('messages', messages);
+			//io.sockets.emit('messages', messages);
 		    //io.sockets.emit('messages', messages);
 		  });
 		  
 		  socket.on('new-messageLatido', function(data) {
-		    messagesLatido.push(data);
+			  console.log('entro a latido');
+			  //messagesLatido.push(data);
 		    
 		    ctrEvents.latidoEventCreate(data);
 		    ctrEvents.latidoEventValidate(data);
 		    
 			//io.sockets.emit('messagesLatido', messagesLatido);
-		    socket.emit('messagesLatido', messagesLatido);
-		    socket.emit('messagesLatidoRespuesta', {respuesta:'OK'});
+		    //socket.emit('messagesLatido', messagesLatido);
+		    socket.emit('messagesLatidoRespuesta', {respuesta:'OKLATIDO'});
 		  });
 
 		  socket.on('new-messageRespiracion', function(data) {
-		    messagesRespiracion.push(data);
+		    //messagesRespiracion.push(data);
 			
 		    ctrEvents.respiracionEventCreate(data);
 		    ctrEvents.respiracionEventValidate(data);
 		    
 			//io.sockets.emit('messagesRespiracion', messagesRespiracion);
-		    socket.emit('messagesRespiracion', messagesRespiracion);
-		    socket.emit('messagesRespiracionRespuesta', {respuesta:'OK'});
+		    //socket.emit('messagesRespiracion', messagesRespiracion);
+		    socket.emit('messagesRespiracionRespuesta', {respuesta:'OKRESPIRACION'});
 		  });  
 
 		  socket.on('new-messageLocalizacion', function(data) {
-		    messagesLocalizacion.push(data);
+		    //messagesLocalizacion.push(data);
 			
 		    ctrEvents.localizacionEventCreate(data);
 		    ctrEvents.localizacionEventValidate(data);
 		    
 			//io.sockets.emit('messagesLocalizacion', messagesLocalizacion);
-		    socket.emit('messagesLocalizacion', messagesLocalizacion);
-		    socket.emit('messagesLocalizacionRespuesta', {respuesta:'OK'});
+		    //socket.emit('messagesLocalizacion', messagesLocalizacion);
+		    socket.emit('messagesLocalizacionRespuesta', {respuesta:'OKLOCALIZACION'});
 		  });  
 		});  
 };
