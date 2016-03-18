@@ -1,5 +1,9 @@
+var publicip = 'http://localhost:3000';
 
-var socket = io.connect('http://localhost:3000', { 'forceNew': true });
+if(process.env.NODE_ENV === 'production'){
+    publicip = process.env.PUBLIC_IP;
+}
+var socket = io.connect(publicip, { 'forceNew': true });
 
 socket.on('messagesRespiracion', function(data) {  
   console.log(data);
