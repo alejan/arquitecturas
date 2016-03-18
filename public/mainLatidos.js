@@ -1,8 +1,4 @@
-var publicip = 'http://localhost:3000';
-
-if(process.env.NODE_ENV === 'production'){
-    publicip = process.env.PUBLIC_IP;
-}
+var publicip = 'http://54.187.83.123:3000';
 var socket = io.connect(publicip, { 'forceNew': true });
 
 socket.on('messagesLatido', function(data) {  
