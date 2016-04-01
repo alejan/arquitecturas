@@ -1,4 +1,4 @@
-
+var nr = require('newrelic');
 var ctrEvents = require('../controllers/eventController');
 
 var messagesLatido = [{  
