@@ -30,6 +30,8 @@ var messagesVerLocalizacion = [{
 	  idMascota: "1",
 	  idCollar: "1",
 	  idUsuario: "1",
+	  latitud: "0",
+	  longitud: "0",
 	  fecha: "2016/01/01 13:09:09"
 	}];
 
@@ -126,6 +128,7 @@ exports.init = function(io){
 			  socket.emit('messagesVerLocalizacionRespuesta', last);
 
       }).every(10, 'ms').for(10, 'sec').start.in(0, 'm');
+
 		  });
 
       socket.emit('messagesVerLocalizacionRespuesta', {"hello":"there"});
