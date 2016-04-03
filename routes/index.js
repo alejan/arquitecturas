@@ -31,6 +31,9 @@ router.get('/latidos', function(req, res, next) {
 router.get('/localizacion', function(req, res, next) {
   res.render('localizacion');
 });
+router.get('/verLocalizacion', function(req, res, next) {
+	  res.render('verLocalizacion');
+});
 router.get('/respiracion', function(req, res, next) {
   res.render('respiracion');
 });
