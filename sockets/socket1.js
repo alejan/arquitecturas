@@ -1,4 +1,4 @@
-var nr = require('newrelic');
+var Repeat = require('repeat');
 var ctrEvents = require('../controllers/eventController');
 
 var messagesLatido = [{  
@@ -26,6 +26,13 @@ var messagesLocalizacion = [{
   fecha: "2016/01/01 13:09:09"
 }];
 
+var messagesVerLocalizacion = [{  
+	  idMascota: "1",
+	  idCollar: "1", 
+	  idUsuario: "1",
+	  fecha: "2016/01/01 13:09:09"
+	}];
+
 var messages = [{  
   id: 1,
   text: "Hola soy un mensaje",
@@ -40,16 +47,16 @@ exports = module.exports = function(io){
 		  //socket.emit('messagesRespiracion', messagesRespiracion);
 		  //socket.emit('messagesLocalizacion', messagesLocalizacion);
 
-		  socket.on('new-message', nr.createWebTransaction('/ws/new-message' ,function(data) {
+		  socket.on('new-message', function(data) {
 		    messages.push(data);
 
-			//io.sockets.emit('messages', messages);
+			io.sockets.emit('messages', messages);
 		    //io.sockets.emit('messages', messages);
 
-			   nr.endTransaction()
-		  }));
+			 
+		  });
 		  
-		  socket.on('new-messageLatido', nr.createWebTransaction('/ws/new-messageLatido' ,function(data) {
+		  socket.on('new-messageLatido', function(data) {
 			  console.log('entro a latido');
 			  //messagesLatido.push(data);
 		    
@@ -62,30 +69,30 @@ exports = module.exports = function(io){
 			//}, 10000);		    
 			ctrEvents.latidoEventValidate(data,function(){
 				socket.emit('messagesLatidoRespuesta', {respuesta:'OKLATIDO'});
-				 nr.endTransaction()
+				 //nr.endTransaction();
 			});
 			//io.sockets.emit('messagesLatido', messagesLatido);
 		    //socket.emit('messagesLatido', messagesLatido);
 
-		  }));
+		  });
 
-		  socket.on('new-messageRespiracion', nr.createWebTransaction('/ws/new-messageRespiracion' ,function(data) {
+		  socket.on('new-messageRespiracion', function(data) {
 		    //messagesRespiracion.push(data);
 			
 		    ctrEvents.respiracionEventCreate(data);
 			ctrEvents.respiracionEventValidate(data,function(){
 				socket.emit('messagesRespiracionRespuesta', {respuesta:'OKRESPIRACION'});
-				 nr.endTransaction()
+				 //nr.endTransaction();
 			});
 		    //ctrEvents.respiracionEventValidate(data);
 		    //ctrEvents.respiracionEventValidate(data);
 		    
 			//io.sockets.emit('messagesRespiracion', messagesRespiracion);
 		    //socket.emit('messagesRespiracion', messagesRespiracion);
-		    //socket.emit('messagesRespiracionRespuesta', {respuesta:'OKRESPIRACION'});
-		  }));
+		    socket.emit('messagesRespiracionRespuesta', {respuesta:'OKRESPIRACION'});
+		  });
 
-		  socket.on('new-messageLocalizacion', nr.createWebTransaction('/ws/new-messageLocalizacion' ,function(data) {
+		  socket.on('new-messageLocalizacion', function(data) {
 		    //messagesLocalizacion.push(data);
 			
 		    ctrEvents.localizacionEventCreate(data);
@@ -95,9 +102,25 @@ exports = module.exports = function(io){
 		    //socket.emit('messagesLocalizacion', messagesLocalizacion);
 			ctrEvents.respiracionEventValidate(data,function(){
 				socket.emit('messagesLocalizacionRespuesta', {respuesta:'OKLOCALIZACION'});
-				nr.endTransaction()
+				//nr.endTransaction();
 			});
 		    //socket.emit('messagesLocalizacionRespuesta', {respuesta:'OKLOCALIZACION'});
-		  }));
+		  });
+		  
+		  socket.on('new-messageVerLocalizacion', function(data) {
+			  var i = 0;
+			  Repeat( function verLocalizacion() {
+			  messagesVerLocalizacion.push(data);
+			  //setInterval(console.log('sdfsdfsdfsd'), 1000);
+			  //socket.emit('messagesVerLocalizacionRespuesta', {respuesta:'OKVERLOCALIZACION'+i});
+			  //Repeat(function sayHello() {
+				  console.log("enviar"+i);
+			 // }).every(500, 'ms').for(2, 'minutes').start.in(5, 'sec');
+			  
+			  socket.emit('messagesVerLocalizacionRespuesta', messagesVerLocalizacion);
+			  i = i + 1;
+			  }).every(1, 'ms').for(10, 'sec').start.in(0, 'm');   
+		  });
+		  
 		});
 };

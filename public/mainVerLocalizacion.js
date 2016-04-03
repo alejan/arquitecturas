@@ -1,14 +1,16 @@
 var publicip = 'http://localhost:3000';
 var socket = io.connect(publicip, { 'forceNew': true });
 
-socket.on('messagesLatido', function(data) {  
+socket.on('messagesVerLocalizacion', function(data) {  
   console.log(data);
   render(data);
 })
 
-socket.on('messagesLatidoRespuesta', function(data) {  
+socket.on('messagesVerLocalizacionRespuesta', function(data) {  
   console.log(data);
-  renderRespuesta(data);
+  //renderRespuesta(data);
+  render(data);
+  
 })
 
 function renderRespuesta (data) {  
@@ -20,31 +22,30 @@ function renderRespuesta (data) {
 }
 
 function render (data) {  
-	  var html = data.map(function(elem, index) {
-	    return(`<div>
-	              <strong>${elem.idMascota}</strong>:
-	              <em>${elem.idCollar}</em>
-				  <em>${elem.idUsuario}</em>
-				  <em>${elem.latido}</em>
-				  <em>${elem.fecha}</em>
-	            </div>`);
-	  }).join(" ");
+  var html = data.map(function(elem, index) {
+    return(`<div>
+              <strong>${elem.idMascota}</strong>:
+              <em>${elem.idCollar}</em>
+			  <em>${elem.idUsuario}</em>
+			  <em>${elem.fecha}</em>
+            </div>`);
+  }).join(" ");
 
-	  document.getElementById('messages').innerHTML = html;
+  document.getElementById('messages').innerHTML = html;
 }
 
-function addLatidos(e) {
-	a = new Date();
 
+function addVerLocalizacion(e) {
+	a = new Date();
+	
     var message = {
     idMascota: document.getElementById('IdMascota').value,
     idCollar: document.getElementById('IdCollar').value,
 	idUsuario: document.getElementById('IdUsuario').value,
-	latido: document.getElementById('Latido').value,
 	fecha: a.format ("%Y-%m-%d %H:%M:%S", false)
   };
 
-  socket.emit('new-messageLatido', message);
+  socket.emit('new-messageVerLocalizacion', message);
   return false;
 }
 
