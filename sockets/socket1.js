@@ -30,6 +30,8 @@ var messagesVerLocalizacion = [{
 	  idMascota: "1",
 	  idCollar: "1", 
 	  idUsuario: "1",
+	  latitud: "0",
+	  longitud: "0",
 	  fecha: "2016/01/01 13:09:09"
 	}];
 
@@ -110,16 +112,23 @@ exports = module.exports = function(io){
 		  socket.on('new-messageVerLocalizacion', function(data) {
 			  var i = 0;
 			  Repeat( function verLocalizacion() {
-			  messagesVerLocalizacion.push(data);
-			  //setInterval(console.log('sdfsdfsdfsd'), 1000);
-			  //socket.emit('messagesVerLocalizacionRespuesta', {respuesta:'OKVERLOCALIZACION'+i});
-			  //Repeat(function sayHello() {
-				  console.log("enviar"+i);
-			 // }).every(500, 'ms').for(2, 'minutes').start.in(5, 'sec');
+				  
+				ctrEvents.localizacionEventVer(data,function(localizacionRetorno){
+					if ( typeof localizacionRetorno !== 'undefined' ){
+						console.log('Retorno el valor de ' +  localizacionRetorno.idMascota);
+						messagesVerLocalizacion.push(localizacionRetorno);
+					}
+					else {
+						console.log('Retorno ningun registro ');
+						messagesVerLocalizacion.push(data);
+					}
+
+					//socket.emit('messagesVerLocalizacionRespuesta', messagesVerLocalizacion);
+					socket.emit('messagesVerLocalizacionRespuesta', {respuesta:'OKVERLOCALIZACION'});
+					i = i + 1;
+				});
 			  
-			  socket.emit('messagesVerLocalizacionRespuesta', messagesVerLocalizacion);
-			  i = i + 1;
-			  }).every(1, 'ms').for(10, 'sec').start.in(0, 'm');   
+			  }).every(200, 'ms').for(300, 'sec').start.in(0, 'm');   
 		  });
 		  
 		});

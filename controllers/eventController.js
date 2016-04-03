@@ -128,7 +128,21 @@ var self = module.exports = {
 				callback();
             });
     },
-
+	localizacionEventVer: function(data, callback){
+		var localizacionRetorno;
+        localizacionEvent.find({idMascota: data.idMascota, idCollar: data.idCollar, idUsuario: data.idUsuario}).sort({fecha:-1}).limit(1).stream()
+            .on('data', function(localizacionVer){
+				localizacionRetorno = localizacionVer;
+				console.log('evento de localizacionver hecho ' + localizacionVer.idMascota);
+            })
+            .on('error', function(err){
+                // handle error
+            })
+            .on('end', function(){
+                // final callback
+				callback(localizacionRetorno);
+            });
+    },
     respiracionEventValidate: function(data, callback){
         mascotas.findOne({idMascota: data.idMascota, idCollar: data.idCollar, idUsuario: data.idUsuario}).stream()
            .on('data', function(mascota){

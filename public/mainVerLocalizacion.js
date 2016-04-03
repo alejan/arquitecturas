@@ -8,8 +8,8 @@ socket.on('messagesVerLocalizacion', function(data) {
 
 socket.on('messagesVerLocalizacionRespuesta', function(data) {  
   console.log(data);
-  //renderRespuesta(data);
-  render(data);
+  renderRespuesta(data);
+  //render(data);
   
 })
 
@@ -27,6 +27,8 @@ function render (data) {
               <strong>${elem.idMascota}</strong>:
               <em>${elem.idCollar}</em>
 			  <em>${elem.idUsuario}</em>
+			  <em>${elem.latitud}</em>
+			  <em>${elem.longitud}</em>
 			  <em>${elem.fecha}</em>
             </div>`);
   }).join(" ");
@@ -42,6 +44,8 @@ function addVerLocalizacion(e) {
     idMascota: document.getElementById('IdMascota').value,
     idCollar: document.getElementById('IdCollar').value,
 	idUsuario: document.getElementById('IdUsuario').value,
+	latitud: 0,
+	longitud: 0,
 	fecha: a.format ("%Y-%m-%d %H:%M:%S", false)
   };
 
