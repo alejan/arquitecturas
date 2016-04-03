@@ -1,6 +1,7 @@
 var publicip = 'http://localhost:3000';
 var socket = io.connect(publicip, { 'forceNew': true });
 
+
 socket.on('messages', function(data) {  
   console.log(data);
   render(data);
