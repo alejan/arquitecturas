@@ -28,9 +28,6 @@ var self = module.exports = {
 		});
 
 	},
-	positionEventFindLast: function(req, res){
-		return {"test": "wee"};
-	},
 	latidoEventCreate: function(data){
 		latidoEvent.create({
 			idMascota: data.idMascota,
@@ -136,7 +133,7 @@ var self = module.exports = {
         localizacionEvent.find({idMascota: data.idMascota, idCollar: data.idCollar, idUsuario: data.idUsuario}).sort({fecha:-1}).limit(1).stream()
             .on('data', function(localizacionVer){
 				localizacionRetorno = localizacionVer;
-				console.log('evento de localizacionver hecho ' + localizacionVer.idMascota);
+				//console.log('evento de localizacionver hecho ' + localizacionVer.idMascota);
             })
             .on('error', function(err){
                 // handle error
