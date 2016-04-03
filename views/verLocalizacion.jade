@@ -4,11 +4,12 @@
 extends layout
 block content
     script(src='mainVerLocalizacion.js')
+    //script(src='https://cdn.socket.io/socket.io-1.2.0.js')
     h1 VerLocalizacion
     #messages
     #messagesrespuesta
     br
-    form(onsubmit='return addVerLocalizacion(this)')
+    form#myform()
         input#IdMascota(type='text', placeholder='IdMascota')
         input#IdCollar(type='text', placeholder='IdCollar')
         input#IdUsuario(type='text', placeholder='IdUsuario')

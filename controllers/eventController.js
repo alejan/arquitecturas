@@ -28,6 +28,9 @@ var self = module.exports = {
 		});
 
 	},
+	positionEventFindLast: function(req, res){
+		return {"test": "wee"};
+	},
 	latidoEventCreate: function(data){
 		latidoEvent.create({
 			idMascota: data.idMascota,
@@ -150,7 +153,7 @@ var self = module.exports = {
 				callback();
               });
     },
-    
+
     sendMessageTwilio: function(data, message){
         usuarios.findOne({idUsuario: data.idUsuario}).stream()
         .on('data', function(usuario){

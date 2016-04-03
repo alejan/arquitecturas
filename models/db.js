@@ -1,7 +1,8 @@
 
 var mongoose = require('mongoose');
 
-var dbUri = 'mongodb://heroku_qd8krpd9:k39ssd3o83g599tj5n9u90s1vd@ds011439.mlab.com:11439/heroku_qd8krpd9';
+var dbUri = 'mongodb://localhost/abcpets';
+//var dbUri = 'mongodb://heroku_qd8krpd9:k39ssd3o83g599tj5n9u90s1vd@ds011439.mlab.com:11439/heroku_qd8krpd9';
 if(process.env.NODE_ENV === 'production'){
     dbUri = process.env.MONGOLAB_URI;
 }
