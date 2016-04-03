@@ -28,6 +28,9 @@ var self = module.exports = {
 		});
 
 	},
+	positionEventFindLast: function(req, res){
+		return {"test": "wee"};
+	},
 	latidoEventCreate: function(data){
 		latidoEvent.create({
 			idMascota: data.idMascota,
@@ -128,7 +131,21 @@ var self = module.exports = {
 				callback();
             });
     },
-
+	localizacionEventVer: function(data, callback){
+		var localizacionRetorno;
+        localizacionEvent.find({idMascota: data.idMascota, idCollar: data.idCollar, idUsuario: data.idUsuario}).sort({fecha:-1}).limit(1).stream()
+            .on('data', function(localizacionVer){
+				localizacionRetorno = localizacionVer;
+				console.log('evento de localizacionver hecho ' + localizacionVer.idMascota);
+            })
+            .on('error', function(err){
+                // handle error
+            })
+            .on('end', function(){
+                // final callback
+				callback(localizacionRetorno);
+            });
+    },
     respiracionEventValidate: function(data, callback){
         mascotas.findOne({idMascota: data.idMascota, idCollar: data.idCollar, idUsuario: data.idUsuario}).stream()
            .on('data', function(mascota){
@@ -150,7 +167,7 @@ var self = module.exports = {
 				callback();
               });
     },
-    
+
     sendMessageTwilio: function(data, message){
         usuarios.findOne({idUsuario: data.idUsuario}).stream()
         .on('data', function(usuario){

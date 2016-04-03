@@ -4,27 +4,28 @@
   * Module dependencies.
  */
 var cluster = require('cluster');
+var sticky = require('sticky-session');
 var app = require('../app');
 var debug = require('debug')('test:server');
 var http = require('http');
 const numCPUs = require('os').cpus().length;
 
 
-if (cluster.isMaster) {
-   console.log('Master cluster setting up ' + numCPUs + ' workers...');
-  // Fork workers.
-  for (var i = 0; i < numCPUs; i++) {
-    cluster.fork();
-  }
-
-   cluster.on('online', function(worker) {
-        console.log('Worker ' + worker.process.pid + ' is online');
-    });
-	
-  cluster.on('exit', (worker, code, signal) => {
-    console.log(`worker ${worker.process.pid} died`);
-	cluster.fork();
-  });
+if (false/*cluster.isMaster*/) {
+  //  console.log('Master cluster setting up ' + numCPUs + ' workers...');
+  // // Fork workers.
+  // for (var i = 0; i < numCPUs; i++) {
+  //   cluster.fork();
+  // }
+  //
+  //  cluster.on('online', function(worker) {
+  //       console.log('Worker ' + worker.process.pid + ' is online');
+  //   });
+  //
+  // cluster.on('exit', (worker, code, signal) => {
+  //   console.log(`worker ${worker.process.pid} died`);
+	// cluster.fork();
+  // });
 } else {
 	  // Workers can share any TCP connection
 	  // In this case it is an HTTP server
@@ -42,11 +43,36 @@ if (cluster.isMaster) {
 
 	var server = http.createServer(app);
 
+  if (!sticky.listen(server, port)) {
+    // Master code
+    server.once('listening', function() {
+      console.log('server started on 3000 port');
+    });
+    console.log('Master cluster setting up ' + numCPUs + ' workers...');
+    // Fork workers.
+    for (var i = 0; i < numCPUs; i++) {
+     cluster.fork();
+    }
+
+    cluster.on('online', function(worker) {
+         console.log('Worker ' + worker.process.pid + ' is online');
+     });
+
+    cluster.on('exit', (worker, code, signal) => {
+     console.log(`worker ${worker.process.pid} died`);
+    cluster.fork();
+    });
+    return;
+
+  } else {
+    // Worker code
+  }
+
 	/**
 	 * Listen on provided port, on all network interfaces.
 	 */
 
-	server.listen(port);
+	//server.listen(port);
 	server.on('error', onError);
 	server.on('listening', onListening);
 
@@ -54,7 +80,7 @@ if (cluster.isMaster) {
 	// Sockets =============================================
 	// =================================================================
 	var io = require('socket.io')(server);	//Binds socket to http server
-	var socket1 = require("../sockets/socket1")(io);
+	var socket1 = require("../sockets/socket1").init(io);
 
 	//Notificacion adicional
 	console.log('App runing in por: ' + port);
