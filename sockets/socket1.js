@@ -127,7 +127,8 @@ exports.init = function(io){
 						//messagesVerLocalizacion.push(data);
 					}
 
-					socket.emit('messagesVerLocalizacionRespuesta', messagesVerLocalizacion);
+					//socket.emit('messagesVerLocalizacionRespuesta', messagesVerLocalizacion);
+					socket.emit('messagesVerLocalizacionRespuesta', {respuesta:'OKVERLOCALIZACION'});
 					
 					i = i + 1;
 				});
