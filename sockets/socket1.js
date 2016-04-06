@@ -114,24 +114,9 @@ exports.init = function(io){
 		  });
 
 		  socket.on('new-messageVerLocalizacion', function(data) {
-			  var i = 0;
-			  //Repeat( function verLocalizacion() {
-				  
-				ctrEvents.localizacionEventVer(data,function(localizacionRetorno){
-					if ( typeof localizacionRetorno !== 'undefined' ){
-						//console.log('Retorno el valor de ' +  localizacionRetorno.idMascota);
-						//messagesVerLocalizacion.push(localizacionRetorno);
-					}
-					else {
-						//console.log('Retorno ningun registro ');
-						//messagesVerLocalizacion.push(data);
-					}
 
-					//socket.emit('messagesVerLocalizacionRespuesta', messagesVerLocalizacion);
-					socket.emit('messagesVerLocalizacionRespuesta', {respuesta:'OKVERLOCALIZACION'});
-					i = i + 1;
-				});
-			  
+				socket.emit('messagesVerLocalizacionRespuesta', {respuesta:'OKVERLOCALIZACION'});
+				
 			  //}).every(200, 'ms').for(300, 'sec').start.in(0, 'm');   
 		  });
 		  
