@@ -115,7 +115,7 @@ exports.init = function(io){
 
 		  socket.on('new-messageVerLocalizacion', function(data) {
 			  var i = 0;
-			  Repeat( function verLocalizacion() {
+			  //Repeat( function verLocalizacion() {
 				  
 				ctrEvents.localizacionEventVer(data,function(localizacionRetorno){
 					if ( typeof localizacionRetorno !== 'undefined' ){
@@ -132,7 +132,7 @@ exports.init = function(io){
 					i = i + 1;
 				});
 			  
-			  }).every(200, 'ms').for(300, 'sec').start.in(0, 'm');   
+			  //}).every(200, 'ms').for(300, 'sec').start.in(0, 'm');   
 		  });
 		  
 		});
