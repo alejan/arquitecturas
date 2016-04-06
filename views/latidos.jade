@@ -15,3 +15,7 @@ block content
         input#IdUsuario(type='text', placeholder='IdUsuario')
         input#Latido(type='text', placeholder='Latido')
         input(type='submit', value='Enviar!')
+    form(onsubmit='return desconectar(this)')
+        input(type='submit', value='Desconectar!')
+    form(onsubmit='return conectar(this)')
+        input(type='submit', value='Conectar!')

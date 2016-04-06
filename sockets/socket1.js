@@ -44,6 +44,7 @@ var messages = [{
 exports.init = function(io){
 	io.on('connection', function(socket) {
 		  console.log('Alguien se ha conectado con Sockets');
+		  
       socket.on('disconnect', function(){
         console.log('user disconnected');
       });
@@ -118,12 +119,12 @@ exports.init = function(io){
 				  
 				ctrEvents.localizacionEventVer(data,function(localizacionRetorno){
 					if ( typeof localizacionRetorno !== 'undefined' ){
-						console.log('Retorno el valor de ' +  localizacionRetorno.idMascota);
-						messagesVerLocalizacion.push(localizacionRetorno);
+						//console.log('Retorno el valor de ' +  localizacionRetorno.idMascota);
+						//messagesVerLocalizacion.push(localizacionRetorno);
 					}
 					else {
-						console.log('Retorno ningun registro ');
-						messagesVerLocalizacion.push(data);
+						//console.log('Retorno ningun registro ');
+						//messagesVerLocalizacion.push(data);
 					}
 
 					//socket.emit('messagesVerLocalizacionRespuesta', messagesVerLocalizacion);

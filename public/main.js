@@ -1,4 +1,4 @@
-var publicip = 'http://54.187.89.36:3000';
+var publicip = 'http://54.191.141.95/:3000';
 var socket = io.connect(publicip, { 'forceNew': true });
 
 

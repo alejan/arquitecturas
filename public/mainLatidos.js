@@ -1,15 +1,7 @@
-var publicip = 'http://54.187.89.36:3000';
-var socket = io.connect(publicip, { 'forceNew': true });
+var publicip = 'http://localhost:3000';
+//var socket = io.connect(publicip, { 'forceNew': true });
+var socket //= io;
 
-socket.on('messagesLatido', function(data) {  
-  console.log(data);
-  render(data);
-})
-
-socket.on('messagesLatidoRespuesta', function(data) {  
-  console.log(data);
-  renderRespuesta(data);
-})
 
 function renderRespuesta (data) {  
     var html = `<div>
@@ -35,7 +27,6 @@ function render (data) {
 
 function addLatidos(e) {
 	a = new Date();
-
     var message = {
     idMascota: document.getElementById('IdMascota').value,
     idCollar: document.getElementById('IdCollar').value,
@@ -43,9 +34,35 @@ function addLatidos(e) {
 	latido: document.getElementById('Latido').value,
 	fecha: a.format ("%Y-%m-%d %H:%M:%S", false)
   };
+  socket.emit('new-messageLatido', message);
+  alert('MnesajeENviado');
+  return false;
+}
 
+function flujoCompleto(e) {
+	a = new Date();
+    var message = {
+    idMascota: document.getElementById('IdMascota').value,
+    idCollar: document.getElementById('IdCollar').value,
+	idUsuario: document.getElementById('IdUsuario').value,
+	latido: document.getElementById('Latido').value,
+	fecha: a.format ("%Y-%m-%d %H:%M:%S", false)
+  };
   socket.emit('new-messageLatido', message);
   return false;
+}
+
+function desconectar(e) {
+	//socket.disconnect();
+	//socket.manager.onClientDisconnect(socket.id);
+	socket.io.close();
+	alert('usuarioDescionectado');
+	return false;
+}
+
+function conectar(e) {
+	socket = io.connect(publicip, { 'forceNew': false });
+	return false;
 }
 
 Date.prototype.format = function(fstr, utc) {
