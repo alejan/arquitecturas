@@ -44,6 +44,7 @@ var messages = [{
 exports.init = function(io){
 	io.on('connection', function(socket) {
 		  console.log('Alguien se ha conectado con Sockets');
+		  
       socket.on('disconnect', function(){
         console.log('user disconnected');
       });
@@ -114,23 +115,26 @@ exports.init = function(io){
 
 		  socket.on('new-messageVerLocalizacion', function(data) {
 			  var i = 0;
-			  Repeat( function verLocalizacion() {
-			  //messagesVerLocalizacion.push(data);
-			  //setInterval(console.log('sdfsdfsdfsd'), 1000);
-			  //socket.emit('messagesVerLocalizacionRespuesta', {respuesta:'OKVERLOCALIZACION'+i});
-			  //Repeat(function sayHello() {
-				//  console.log("enviar"+i);
-			 // }).every(500, 'ms').for(2, 'minutes').start.in(5, 'sec');
+			  //Repeat( function verLocalizacion() {
+				  
+				ctrEvents.localizacionEventVer(data,function(localizacionRetorno){
+					if ( typeof localizacionRetorno !== 'undefined' ){
+						//console.log('Retorno el valor de ' +  localizacionRetorno.idMascota);
+						//messagesVerLocalizacion.push(localizacionRetorno);
+					}
+					else {
+						//console.log('Retorno ningun registro ');
+						//messagesVerLocalizacion.push(data);
+					}
 
-       var last = ctrEvents.positionEventFindLast();
-       //i = i + 1;
-
-			  socket.emit('messagesVerLocalizacionRespuesta', last);
-
-      }).every(10, 'ms').for(10, 'sec').start.in(0, 'm');
-
+					//socket.emit('messagesVerLocalizacionRespuesta', messagesVerLocalizacion);
+					socket.emit('messagesVerLocalizacionRespuesta', {respuesta:'OKVERLOCALIZACION'});
+					
+					i = i + 1;
+				});
+				
+			  //}).every(200, 'ms').for(300, 'sec').start.in(0, 'm');   
 		  });
-
-      socket.emit('messagesVerLocalizacionRespuesta', {"hello":"there"});
+		  
 		});
 };

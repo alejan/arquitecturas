@@ -46,7 +46,7 @@ if (false/*cluster.isMaster*/) {
   if (!sticky.listen(server, port)) {
     // Master code
     server.once('listening', function() {
-      console.log('server started on 3000 port');
+      console.log('server started on port: ' + port);
     });
     console.log('Master cluster setting up ' + numCPUs + ' workers...');
     // Fork workers.
@@ -58,9 +58,9 @@ if (false/*cluster.isMaster*/) {
          console.log('Worker ' + worker.process.pid + ' is online');
      });
 
-    cluster.on('exit', (worker, code, signal) => {
-     console.log(`worker ${worker.process.pid} died`);
-    cluster.fork();
+    cluster.on('exit', function(worker, code, signal) {
+    	//console.log(`worker ${worker.process.pid} died`);
+    	cluster.fork();
     });
     return;
 

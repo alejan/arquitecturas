@@ -5,10 +5,11 @@ var router = express.Router();
 //var ctrEvents = require('../controllers/eventController');
 
 /* GET home page. */
+/*
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
-
+*/
 //router.get('/event', ctrEvents.positionEventCreate);
 
 
@@ -31,7 +32,7 @@ router.get('/latidos', function(req, res, next) {
 router.get('/localizacion', function(req, res, next) {
   res.render('localizacion');
 });
-router.get('/verLocalizacion', function(req, res, next) {
+router.get('/', function(req, res, next) {
 	  res.render('verLocalizacion');
 });
 router.get('/respiracion', function(req, res, next) {
