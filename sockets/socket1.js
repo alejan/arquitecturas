@@ -71,6 +71,7 @@ exports.init = function(io){
 			ctrEvents.latidoEventValidate(data,function(){
 				socket.emit('messagesLatidoRespuesta', {respuesta:'OKLATIDO'});
         nr.endTransaction();
+        console.log('terminó new-messageLatido transacción');
 			})
 			//io.sockets.emit('messagesLatido', messagesLatido);
 		    //socket.emit('messagesLatido', messagesLatido);
