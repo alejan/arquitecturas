@@ -3,6 +3,7 @@
 /**
   * Module dependencies.
  */
+var nr = require('newrelic');
 var cluster = require('cluster');
 var sticky = require('sticky-session');
 var app = require('../app');
