@@ -71,11 +71,11 @@ exports.init = function(io){
 			ctrEvents.latidoEventValidate(data,function(){
 				socket.emit('messagesLatidoRespuesta', {respuesta:'OKLATIDO'});
         nr.endTransaction();
-			});
+			})
 			//io.sockets.emit('messagesLatido', messagesLatido);
 		    //socket.emit('messagesLatido', messagesLatido);
 
-		  });
+		  }));
 
 		  socket.on('new-messageRespiracion', function(data) {
 		    //messagesRespiracion.push(data);
