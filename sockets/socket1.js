@@ -94,43 +94,44 @@ exports.init = function(io){
 		    socket.emit('messagesRespiracionRespuesta', {respuesta:'OKRESPIRACION'});
 		  });
 
-		  socket.on('new-messageLocalizacion', function(data) {
-		    //messagesLocalizacion.push(data);
+      socket.on('new-messageLocalizacion', nr.createWebTransaction('/ws/new-messageLocalizacion' ,function(data) {
 
 		    ctrEvents.localizacionEventCreate(data);
 		    //ctrEvents.localizacionEventValidate(data);
 
-			//io.sockets.emit('messagesLocalizacion', messagesLocalizacion);
-		    //socket.emit('messagesLocalizacion', messagesLocalizacion);
-			ctrEvents.respiracionEventValidate(data,function(){
-				socket.emit('messagesLocalizacionRespuesta', {respuesta:'OKLOCALIZACION'});
-				//nr.endTransaction();
-			});
-		    //socket.emit('messagesLocalizacionRespuesta', {respuesta:'OKLOCALIZACION'});
-		  });
 
-		  socket.on('new-messageVerLocalizacion', function(data) {
+			ctrEvents.respiracionEventValidate(data,function(){
+  				socket.emit('messagesLocalizacionRespuesta', {respuesta:'OKLOCALIZACION'});
+  				nr.endTransaction();
+          console.log('terminó new-messageLocalizacion transacción');
+			   });
+		    //socket.emit('messagesLocalizacionRespuesta', {respuesta:'OKLOCALIZACION'});
+		  }));
+
+      socket.on('new-messageVerLocalizacion', nr.createWebTransaction('/ws/new-messageVerLocalizacion' ,function(data) {
+
 			  var i = 0;
-			  //Repeat( function verLocalizacion() {
+			  Repeat( function verLocalizacion() {
 
 				ctrEvents.localizacionEventVer(data,function(localizacionRetorno){
-					if ( typeof localizacionRetorno !== 'undefined' ){
-						//console.log('Retorno el valor de ' +  localizacionRetorno.idMascota);
-						//messagesVerLocalizacion.push(localizacionRetorno);
-					}
-					else {
-						//console.log('Retorno ningun registro ');
-						//messagesVerLocalizacion.push(data);
-					}
+					// if ( typeof localizacionRetorno !== 'undefined' ){
+					// 	console.log('Retorno el valor de ' +  localizacionRetorno.idMascota);
+					// 	messagesVerLocalizacion.push(localizacionRetorno);
+					// }
+					// else {
+					// 	console.log('Retorno ningun registro ');
+					// 	messagesVerLocalizacion.push(data);
+					// }
 
-					//socket.emit('messagesVerLocalizacionRespuesta', messagesVerLocalizacion);
-					socket.emit('messagesVerLocalizacionRespuesta', {respuesta:'OKVERLOCALIZACION'});
-
+					socket.emit('messagesVerLocalizacionRespuesta', messagesVerLocalizacion);
+					//socket.emit('messagesVerLocalizacionRespuesta', {respuesta:'OKVERLOCALIZACION'});
 					i = i + 1;
+          nr.endTransaction();
+          console.log('terminó new-VerLocalizacion transacción');
 				});
 
-			  //}).every(200, 'ms').for(300, 'sec').start.in(0, 'm');
-		  });
+			  }).every(200, 'ms').for(300, 'sec').start.in(0, 'm');
+		  }));
 
 		});
 };
