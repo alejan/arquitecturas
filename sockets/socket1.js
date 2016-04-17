@@ -1,3 +1,4 @@
+var nr = require('newrelic');
 var Repeat = require('repeat');
 var ctrEvents = require('../controllers/eventController');
 
@@ -44,7 +45,7 @@ var messages = [{
 exports.init = function(io){
 	io.on('connection', function(socket) {
 		  console.log('Alguien se ha conectado con Sockets');
-		  
+
       socket.on('disconnect', function(){
         console.log('user disconnected');
       });
@@ -61,21 +62,15 @@ exports.init = function(io){
 
 
 		  });
-
-		  socket.on('new-messageLatido', function(data) {
+      socket.on('new-messageLatido', nr.createWebTransaction('/ws/new-messageLatido' ,function(data) {
 			  console.log('entro a latido');
 			  //messagesLatido.push(data);
 
-		    ctrEvents.latidoEventCreate(data);
+	    ctrEvents.latidoEventCreate(data);
 
-			//setTimeout(function() {
-			//ctrEvents.latidoEventValidate(data,function(){
-				//socket.emit('messagesLatidoRespuesta', {respuesta:'OKLATIDO'});
-			//})
-			//}, 10000);
 			ctrEvents.latidoEventValidate(data,function(){
 				socket.emit('messagesLatidoRespuesta', {respuesta:'OKLATIDO'});
-				 //nr.endTransaction();
+        nr.endTransaction();
 			});
 			//io.sockets.emit('messagesLatido', messagesLatido);
 		    //socket.emit('messagesLatido', messagesLatido);
@@ -116,7 +111,7 @@ exports.init = function(io){
 		  socket.on('new-messageVerLocalizacion', function(data) {
 			  var i = 0;
 			  //Repeat( function verLocalizacion() {
-				  
+
 				ctrEvents.localizacionEventVer(data,function(localizacionRetorno){
 					if ( typeof localizacionRetorno !== 'undefined' ){
 						//console.log('Retorno el valor de ' +  localizacionRetorno.idMascota);
@@ -129,12 +124,12 @@ exports.init = function(io){
 
 					//socket.emit('messagesVerLocalizacionRespuesta', messagesVerLocalizacion);
 					socket.emit('messagesVerLocalizacionRespuesta', {respuesta:'OKVERLOCALIZACION'});
-					
+
 					i = i + 1;
 				});
-				
-			  //}).every(200, 'ms').for(300, 'sec').start.in(0, 'm');   
+
+			  //}).every(200, 'ms').for(300, 'sec').start.in(0, 'm');
 		  });
-		  
+
 		});
 };
