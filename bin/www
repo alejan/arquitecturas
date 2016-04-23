@@ -8,9 +8,16 @@ var cluster = require('cluster');
 var sticky = require('sticky-session');
 var app = require('../app');
 var debug = require('debug')('test:server');
-var http = require('http');
+//var http = require('http');
+var https = require('https');
+var fs = require('fs');
+
 const numCPUs = require('os').cpus().length;
 
+
+
+var sslkey = fs.readFileSync('certs/key.pem');
+var sslcert = fs.readFileSync('certs/cert.pem');
 
 if (false/*cluster.isMaster*/) {
   //  console.log('Master cluster setting up ' + numCPUs + ' workers...');
@@ -42,7 +49,10 @@ if (false/*cluster.isMaster*/) {
 	 * Create HTTP server.
 	 */
 
-	var server = http.createServer(app);
+	var server = https.createServer({
+		key: sslkey,
+	 	cert: sslcert
+	},app);
 
   if (!sticky.listen(server, port)) {
     // Master code
