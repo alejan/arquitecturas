@@ -1,5 +1,6 @@
 var nr = require('newrelic');
 var Repeat = require('repeat');
+var socketioJwt = require('socketio-jwt');
 var ctrEvents = require('../controllers/eventController');
 
 var messagesLatido = [{
@@ -43,6 +44,20 @@ var messages = [{
 }];
 
 exports.init = function(io){
+	//io.use(function(socket, next){
+	//	console.log("Query: ", socket.handshake.query);
+		
+	//	if (socket.handshake.query.foo == "bar") {
+	//		console.log("Query: OK");
+	//		return next();
+	//	}
+	//	console.log("Query: ERR");
+    //  next(new Error('Authentication error'));
+	//});
+	io.use(socketioJwt.authorize({
+	  secret: 'CLAVEPRUEBA',
+	  handshake: true
+	}));
   io.on('connection', function(socket) {
     console.log('Alguien se ha conectado con Sockets');
 

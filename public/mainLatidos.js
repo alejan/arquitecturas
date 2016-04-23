@@ -35,7 +35,7 @@ function addLatidos(e) {
 	fecha: a.format ("%Y-%m-%d %H:%M:%S", false)
   };
   socket.emit('new-messageLatido', message);
-  alert('MnesajeENviado');
+  //alert('MnesajeENviado');
   return false;
 }
 
@@ -61,7 +61,21 @@ function desconectar(e) {
 }
 
 function conectar(e) {
-	socket = io.connect(publicip, { 'forceNew': false });
+	var validToken = '';
+	var invalidToken = 'invalidToken';
+	var user = {
+	  username: 'DIEGOHOYOS'
+	};
+
+	$.ajax({
+	  type: 'POST',
+	  url: 'http://localhost:3000/get/token',
+	  data: user
+	}).done(function (data) {
+		validToken = data.token;		 
+		socket = io.connect(publicip, {	'query': 'token=' + validToken, 'forceNew': false });
+	});
+
 	return false;
 }
 
