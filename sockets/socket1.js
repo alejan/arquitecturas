@@ -54,10 +54,10 @@ exports.init = function(io){
 	//	console.log("Query: ERR");
     //  next(new Error('Authentication error'));
 	//});
-	io.use(socketioJwt.authorize({
-	  secret: 'CLAVEPRUEBA',
-	  handshake: true
-	}));
+	//io.use(socketioJwt.authorize({
+	//  secret: 'CLAVEPRUEBA',
+	//  handshake: true
+	//}));
   io.on('connection', function(socket) {
     console.log('Alguien se ha conectado con Sockets');
 
