@@ -1,4 +1,4 @@
-var publicip = 'http://localhost:3000';
+var publicip = 'https://localhost:3000';
 //var socket = io.connect(publicip, { 'forceNew': true });
 var socket //= io;
 
@@ -69,11 +69,12 @@ function conectar(e) {
 
 	$.ajax({
 	  type: 'POST',
-	  url: 'http://localhost:3000/get/token',
+	  url: 'https://localhost:3000/get/token',
 	  data: user
 	}).done(function (data) {
 		validToken = data.token;		 
 		socket = io.connect(publicip, {	'query': 'token=' + validToken, 'forceNew': false });
+		//socket = io.connect(publicip, {	'forceNew': false });
 	});
 
 	return false;
