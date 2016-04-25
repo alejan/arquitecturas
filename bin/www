@@ -8,7 +8,7 @@ var cluster = require('cluster');
 var sticky = require('sticky-session');
 var app = require('../app');
 var debug = require('debug')('test:server');
-var http = require('https');
+var http = require('http');
 const numCPUs = require('os').cpus().length;
 const fs = require('fs');
 
@@ -48,7 +48,8 @@ if (false/*cluster.isMaster*/) {
 	 * Create HTTP server.
 	 */
 
-	var server = http.createServer(options, app);
+	//var server = http.createServer(options, app);
+	var server = http.createServer(app);
 
   if (!sticky.listen(server, port)) {
     // Master code
